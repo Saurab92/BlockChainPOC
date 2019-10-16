@@ -1,12 +1,17 @@
 var express = require('express')
-var app = express()
+var app = express();
+const bodyparser = require('body-parser');
+
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
 
 app.get('/blockchain', function(req,res){
-    res.send('Hello world')
+    
 })
 
 app.post('/transaction', function(req,res){
-
+    console.log(req.body)
+    res.send(`The amount of transaction is ${req.body.amount} bitcoins`);
 })
 
 //It will create a new block
