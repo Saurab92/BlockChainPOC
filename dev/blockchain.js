@@ -3,6 +3,10 @@ const sha256 = require('sha256');
 function Blockchain(){
     this.chain = [];
     this.pendingTransaction = [];
+
+    //Creating a Genesis block
+    //Genesis block is the first block in blockchain
+    this.createNewBlock(100,'0','0');
 }
 
 Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash){
@@ -43,6 +47,17 @@ Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, n
         const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData);
         const hash = sha256(dataAsString);
         return hash;
+}
+
+Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData){
+    console.log("inside the prrofOfWork Method");
+    let nonce = 0;
+    const hash = this.hashBlock(previousBlockHash,currentBlockData, nonce);
+    while(hash.substring(0,4)!=='0000'){
+        nonce++;
+        const hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
+    }
+    return nonce;
 }
 
 module.exports = Blockchain;
