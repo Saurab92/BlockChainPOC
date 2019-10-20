@@ -3,6 +3,7 @@ var app = express();
 const bodyparser = require('body-parser');
 const blockchain = require('./blockchain');
 const uuid = require('uuid/v1');
+const port = process.argv[2];
 
 const nodeAddress = uuid().split('-').join('');
 
@@ -34,7 +35,7 @@ app.get('/mine', function(req,res){
 
     const nonce = bitcoin.proofOfWork(previousBlockHash, currentBlockData);
     const blockHash = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
-    bitcoin.createNewTransaction(12.5,"00", nodeAddress);
+    bitcoin.createNewTransaction(12000000,"00", nodeAddress);
     const newBlock = bitcoin.createNewBlock(nonce, previousBlockHash, blockHash);
     res.json({
         note: "New block mined successfully",
@@ -42,6 +43,22 @@ app.get('/mine', function(req,res){
     })
 })
 
-app.listen(3000, function(){
-    console.log('Listening on port 3000 ....');
+//register the node and broadcast it the network
+app.post('/register-and-broadcast-node', function(req, res){
+    const newNodeUrl = req.body.newNodeUrl;
+
+})
+
+//register a node with the network
+app.post('/register-node', function(req, res){
+
+})
+
+//register multiple nodes at once
+app.post('/resister-nodes-bulk', function(req, res){
+
+})
+
+app.listen(port, function(){
+    console.log(`Listening on port ${port} ....`);
 })
