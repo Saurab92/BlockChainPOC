@@ -32,9 +32,12 @@ const currentBlockData = [
     {
         amount:30,
         sender: 'KDJDU83REJFDEIRE',
-        recipient:'LLLLER8E9REFEIFEI'
+        recipient:'LLLLER8E9REFEI'
     }
 ];
-const nonce = 100;
+// const nonce = 100;
 
-console.log(bitcoin.hashBlock(previousBlockHash,currentBlockData,nonce));
+// console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData));
+console.log(bitcoin);
+
+// console.log(bitcoin.hashBlock(previousBlockHash,currentBlockData,nonce));
